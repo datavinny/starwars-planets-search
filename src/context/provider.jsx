@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import TableContext from './tableContext';
 
 function Provider({ children }) {
-  // const [stateA, setStateA] = useState('initialStateA');
+  const [name, setName] = useState({ filterByName: { name: '' } });
   // const [stateB, setStateB] = useState('initialStateB');
   const contextValue = {
-    title: 'a',
+    name,
+    setName,
   };
 
   return (

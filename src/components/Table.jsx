@@ -1,16 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import tableData from '../services/api';
+import TableContext from '../context/tableContext';
 
 function Table() {
   const [data, setData] = useState([]);
+  const [makeFetch, setMakeFetch] = useState(false);
+  const { name } = useContext(TableContext);
 
   useEffect(() => {
     async function fetchTable() {
       const result = await tableData();
       setData(result.results);
     }
-    fetchTable();
-  }, []);
+    if (makeFetch === false) {
+      fetchTable();
+      setMakeFetch(true);
+    } else if (name.filterByName.name.length === 0) {
+      fetchTable();
+    }
+    if (name.filterByName.name.length > 0) {
+      const userInput = name.filterByName.name;
+      const filtred = data.filter((e) => (
+        e.name.toLowerCase().includes(userInput)
+      ));
+      if (filtred.length > 0) {
+        setData(filtred);
+      }
+    }
+  }, [name]);
 
   return (
     <table border="1">
