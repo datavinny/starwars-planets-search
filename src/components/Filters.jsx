@@ -9,7 +9,7 @@ function Filters() {
     ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
   );
   const {
-    setName, setPopulation, population,
+    setName, setPopulation, population, backupData, setData,
   } = useContext(TableContext);
 
   const onChangeValue = ({ target }) => {
@@ -45,10 +45,12 @@ function Filters() {
   const removeSelectedFilter = (selectedFilter) => {
     const userFilters = population.filterByNumericValues;
     const attFilters = userFilters.filter((e) => e !== selectedFilter);
+    setData(backupData);
     setPopulation({ filterByNumericValues: [...attFilters] });
   };
 
   const clearFilters = () => {
+    setData(backupData);
     setPopulation({ filterByNumericValues: [] });
     setColumnFilters(
       ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],

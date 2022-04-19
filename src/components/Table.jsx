@@ -3,9 +3,10 @@ import tableData from '../services/api';
 import TableContext from '../context/tableContext';
 
 function Table() {
-  const [data, setData] = useState([]);
   const [makeFetch, setMakeFetch] = useState(true);
-  const { name, population } = useContext(TableContext);
+  const {
+    name, population, data, setData, setBackupData, backupData,
+  } = useContext(TableContext);
 
   const numericFilter = (comparison) => {
     const userFilters = population.filterByNumericValues;
@@ -34,6 +35,7 @@ function Table() {
     async function fetchTable() {
       const result = await tableData();
       setData(result.results);
+      setBackupData(result.results);
     }
     if (makeFetch === true) {
       fetchTable();
@@ -41,7 +43,7 @@ function Table() {
     } else if (
       name.filterByName.name.length === 0 && population.filterByNumericValues.length === 0
     ) {
-      fetchTable();
+      setData(backupData);
     }
     if (name.filterByName.name.length > 0) {
       const userInput = name.filterByName.name;

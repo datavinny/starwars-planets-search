@@ -7,11 +7,17 @@ function Provider({ children }) {
   const [population, setPopulation] = useState(
     { filterByNumericValues: [] },
   );
+  const [data, setData] = useState([]);
+  const [backupData, setBackupData] = useState([]);
   const contextValue = {
     name,
     setName,
     population,
     setPopulation,
+    data,
+    setData,
+    backupData,
+    setBackupData,
   };
 
   return (
