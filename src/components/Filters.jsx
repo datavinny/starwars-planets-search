@@ -32,6 +32,9 @@ function Filters() {
     }
     if (newColumnFilters.length > 0) {
       setColumnFilters(newColumnFilters);
+      setPopulationFilters(
+        (prevState) => ({ ...prevState, column: newColumnFilters[0] }),
+      );
     }
   };
 
@@ -48,7 +51,7 @@ function Filters() {
   const clearFilters = () => {
     setPopulation({ filterByNumericValues: [] });
     setColumnFilters(
-      ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water']
+      ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
     );
   };
 
