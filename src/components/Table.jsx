@@ -4,30 +4,67 @@ import TableContext from '../context/tableContext';
 
 function Table() {
   const [data, setData] = useState([]);
-  const [makeFetch, setMakeFetch] = useState(false);
-  const { name } = useContext(TableContext);
+  const [makeFetch, setMakeFetch] = useState(true);
+  const { name, population } = useContext(TableContext);
+
+  const numericFilter = (comparison) => {
+    const userFilters = population.filterByNumericValues;
+    if (comparison === 'maior que') {
+      return data.filter((e) => {
+        if (userFilters.length > 0) {
+          return Number(e[userFilters[0].column]) > Number(userFilters[0].value);
+        }
+        return [];
+      });
+    }
+    if (comparison === 'menor que') {
+      return data.filter((e) => {
+        if (userFilters.length > 0) {
+          return Number(e[userFilters[0].column]) < Number(userFilters[0].value);
+        }
+        return [];
+      });
+    }
+    if (comparison === 'igual a') {
+      return data.filter((e) => {
+        if (userFilters.length > 0) {
+          return Number(e[userFilters[0].column]) === Number(userFilters[0].value);
+        }
+        return [];
+      });
+    }
+  };
 
   useEffect(() => {
     async function fetchTable() {
       const result = await tableData();
       setData(result.results);
     }
-    if (makeFetch === false) {
+    if (makeFetch === true) {
       fetchTable();
-      setMakeFetch(true);
-    } else if (name.filterByName.name.length === 0) {
+      setMakeFetch(false);
+    } else if (
+      name.filterByName.name.length === 0 && population.filterByNumericValues.length === 0
+    ) {
       fetchTable();
     }
     if (name.filterByName.name.length > 0) {
       const userInput = name.filterByName.name;
       const filtred = data.filter((e) => (
-        e.name.toLowerCase().includes(userInput)
+        e.name.toLowerCase().includes(userInput.toLowerCase())
       ));
-      if (filtred.length > 0) {
-        setData(filtred);
+      setData(filtred);
+    }
+    if (makeFetch === false && population.filterByNumericValues.length > 0) {
+      const userFilters = population.filterByNumericValues;
+      for (let i = 0; i < userFilters.length; i += 1) {
+        const filtred = numericFilter(userFilters[i].comparison);
+        if (filtred.length > 0) {
+          setData(filtred);
+        }
       }
     }
-  }, [name]);
+  }, [name, population]);
 
   return (
     <table border="1">

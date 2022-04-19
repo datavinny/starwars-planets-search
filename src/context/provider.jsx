@@ -4,10 +4,14 @@ import TableContext from './tableContext';
 
 function Provider({ children }) {
   const [name, setName] = useState({ filterByName: { name: '' } });
-  // const [stateB, setStateB] = useState('initialStateB');
+  const [population, setPopulation] = useState(
+    { filterByNumericValues: [] },
+  );
   const contextValue = {
     name,
     setName,
+    population,
+    setPopulation,
   };
 
   return (
