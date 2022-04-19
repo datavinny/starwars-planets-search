@@ -9,30 +9,25 @@ function Table() {
 
   const numericFilter = (comparison) => {
     const userFilters = population.filterByNumericValues;
-    if (comparison === 'maior que') {
-      return data.filter((e) => {
-        if (userFilters.length > 0) {
-          return Number(e[userFilters[0].column]) > Number(userFilters[0].value);
-        }
-        return [];
-      });
+    let result = [];
+    for (let index = 0; index < userFilters.length; index += 1) {
+      if (comparison === 'maior que') {
+        result = data.filter((e) => (
+          Number(e[userFilters[index].column]) > Number(userFilters[index].value)
+        ));
+      }
+      if (comparison === 'menor que') {
+        result = data.filter((e) => (
+          Number(e[userFilters[index].column]) < Number(userFilters[index].value)
+        ));
+      }
+      if (comparison === 'igual a') {
+        result = data.filter((e) => (
+          Number(e[userFilters[index].column]) === Number(userFilters[index].value)
+        ));
+      }
     }
-    if (comparison === 'menor que') {
-      return data.filter((e) => {
-        if (userFilters.length > 0) {
-          return Number(e[userFilters[0].column]) < Number(userFilters[0].value);
-        }
-        return [];
-      });
-    }
-    if (comparison === 'igual a') {
-      return data.filter((e) => {
-        if (userFilters.length > 0) {
-          return Number(e[userFilters[0].column]) === Number(userFilters[0].value);
-        }
-        return [];
-      });
-    }
+    return result;
   };
 
   useEffect(() => {
@@ -59,9 +54,7 @@ function Table() {
       const userFilters = population.filterByNumericValues;
       for (let i = 0; i < userFilters.length; i += 1) {
         const filtred = numericFilter(userFilters[i].comparison);
-        if (filtred.length > 0) {
-          setData(filtred);
-        }
+        setData(filtred);
       }
     }
   }, [name, population]);
