@@ -27,10 +27,6 @@ Neste projeto, foi testado habilidades de:
 
 ### Instalando Dependências
 
-> Backend
-```bash
-cd api/ && npm install
-``` 
 > Frontend
 ```bash
 cd src/ && npm install
