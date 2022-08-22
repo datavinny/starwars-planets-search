@@ -17,12 +17,6 @@ Neste projeto, foi testado habilidades de:
 - Utilizar o React Hook useEffect;
 - Criar React Hooks customizados.
 
-### Data de entrega
-
-- Projeto individual;
-- Foram 2 dias de projeto;
-- Data de entrega do projeto: `19/04/2022 - 17:10h`
-
 ## Para testar/contribuir no Projeto
 
 ### Instalando Dependências
