@@ -7,9 +7,8 @@ Este projeto foi feito enquanto estudava na @betrybe.
 
 Front-end:
 > Desenvolvido usando: React, CSS3, HTML5, ES6
-## Habilidades
 
-Neste projeto, foi testado habilidades de:
+## Habilidades
 
 - Utilizar a Context API do React para gerenciar estado.
 - Utilizar o React Hook useState;
