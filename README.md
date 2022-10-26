@@ -6,7 +6,7 @@ Este projeto foi feito enquanto estudava na @betrybe.
 ## Técnologias usadas
 
 Front-end:
-> Desenvolvido usando: React, CSS3, HTML5, ES6
+> Desenvolvido usando: React, ES6
 
 ## Habilidades
 
